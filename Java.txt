@@ -1,0 +1,258 @@
+package payment; 
+ 
+public interface Transaction {
+void Deposit(); 
+void WithDraw();  
+void viewBalance();
+String getAcc_name(); 
+int getAcc_no(); 
+ 
+} 
+ 
+package database; 
+ 
+public class Account { 
+String acc_name; 
+int acc_no,balance; 
+ 
+ 
+ 
+  public Account(String acc_name, int acc_no, int balance) { 
+  super(); 
+  this.acc_name = acc_name;
+  this.acc_no = acc_no;  
+  this.balance = balance;
+  } 
+ 
+ 
+ 
+ public String getAcc_name() { 
+ return acc_name; 
+ } 
+ 
+ public void setAcc_name(String acc_name) 
+ {
+ this.acc_name = acc_name; 
+ } 
+ 
+ public int getAcc_no() { 
+ return acc_no;  
+ } 
+ 
+ public void setAcc_no(int acc_no) { 
+ this.acc_no = acc_no; 
+ } 
+ 
+ public int getBalance() { 
+ return balance;
+ } 
+ 
+ public void setBalance(int balance) {
+ this.balance = balance;  
+ }
+ } 
+ 
+ 
+ 
+ 
+package bank; 
+ 
+import java.util.Scanner; 
+import database.Account; 
+import payment.*; 
+public class SBI_Bank extends Account implements Transaction { 
+Scanner s=new Scanner(System.in); 
+int balance=10000; 
+ 
+public SBI_Bank(String acc_name, int acc_no, int balance) { 
+super(acc_name, acc_no, balance); 
+// TODO Auto-generated constructor stub 
+} 
+ 
+@Override 
+public void Deposit() { 
+// TODO Auto-generated method stub 
+        int giveMoney; 
+   System.out.println("Enter the amount to be deposited"); 
+giveMoney=s.nextInt(); 
+balance=balance+giveMoney; 
+//System.out.println("Balance:"+(balance+giveMoney)); 
+ 
+System.out.println("Your money has been successfully deposited!"); 
+ 
+System.out.println(""); 
+ 
+ 
+} 
+ @Override 
+public void WithDraw() { 
+// TODO Auto-generated method stub 
+int takeMoney; 
+System.out.println("Enter the money to withdraw:"); 
+takeMoney=s.nextInt(); 
+if(balance>=takeMoney) { 
+balance=balance-takeMoney; 
+//System.out.println("Balance:"+(balance-takeMoney)); 
+ 
+ 
+System.out.println("Please collect your money!"); 
+ 
+} 
+else 
+{ 
+System.out.println("Insufficient Balance!"); 
+} 
+System.out.println(""); 
+ 
+} 
+ 
+@Override 
+public void viewBalance() { 
+// TODO Auto-generated method stub 
+
+ 
+ 5 
+ 
+System.out.println("The balance is:"+balance); 
+System.out.println(""); 
+ 
+} 
+ 
+} 
+ 
+package bank; 
+import java.util.Scanner; 
+import database.Account; 
+import payment.Transaction; 
+ 
+public class Syndicate_Bank extends Account implements Transaction { 
+Scanner s=new Scanner(System.in); 
+int balance=10000; 
+ 
+public Syndicate_Bank(String acc_name, int acc_no, int balance) { 
+super(acc_name, acc_no, balance); 
+// TODO Auto-generated constructor stub 
+} 
+ 
+@Override 
+public void Deposit() { 
+// TODO Auto-generated method stub 
+        int giveMoney; 
+           System.out.println("Enter the amount to be deposited"); 
+giveMoney=s.nextInt(); 
+balance=balance+giveMoney; 
+//System.out.println("Balance:"+(balance+giveMoney)); 
+ 
+System.out.println("Your money has been successfully deposited!"); 
+ 
+System.out.println(""); 
+ 
+ 
+} 
+ 
+@Override 
+public void WithDraw() { 
+// TODO Auto-generated method stub 
+int takeMoney; 
+System.out.println("Enter the money to withdraw:"); 
+takeMoney=s.nextInt(); 
+if(balance>=takeMoney) { 
+balance=balance-takeMoney; 
+//System.out.println("Balance:"+(balance-takeMoney)); 
+ 
+ 
+System.out.println("Please collect your money!"); 
+} 
+else 
+{ 
+System.out.println("Insufficient Balance!"); 
+} 
+System.out.println(""); 
+ 
+} 
+ 
+@Override 
+public void viewBalance() { 
+// TODO Auto-generated method stub 
+System.out.println("The balance is:"+balance); 
+System.out.println(""); 
+ 
+} 
+ 
+} 
+ 
+package endpoint; 
+import java.util.Scanner; 
+import bank.SBI_Bank; 
+import bank.Syndicate_Bank; 
+import payment.Transaction; 
+public class Main { 
+public static void main(String[] args) { 
+Scanner n=new Scanner(System.in); 
+Transaction r=null; 
+int c2; 
+ 
+do { 
+int ch; 
+System.out.println("1.SBI Bank"); 
+System.out.println("2.Syndicate Bank"); 
+System.out.println("Enter your choice:"); 
+ch=n.nextInt(); 
+int c,b = 0,y=0; 
+ 
+switch(ch) { 
+case 1: 
+r=new SBI_Bank("ABC", 1234, y); 
+System.out.println("Name:"+r.getAcc_name()); 
+System.out.println("Account Number:"+r.getAcc_no()); 
+ 
+int c1; 
+   do { 
+System.out.println("1.View Balance"); 
+System.out.println("2.WithdrawMoney"); 
+System.out.println("3.Deposit Money"); 
+System.out.println("Enter your choice:"); 
+c1=n.nextInt(); 
+switch(c1){ 
+case 1:r.viewBalance(); 
+      break; 
+case 2:r.WithDraw(); 
+      break; 
+case 3:r.Deposit(); 
+      break; 
+default:System.out.println("Invalid Choice"); 
+} 
+System.out.println("Do you want to continue?(1.Yes\n2.No)"); 
+c=n.nextInt(); 
+}while(c==1); 
+    break; 
+case 2: 
+r=new Syndicate_Bank("XYZ", 98761, y); 
+System.out.println("Name:"+r.getAcc_name()); 
+System.out.println("Account Number:"+r.getAcc_no()); 
+ do {  
+System.out.println("1.View Balance"); 
+System.out.println("2.WithdrawMoney"); 
+System.out.println("3.Deposit Money"); 
+System.out.println("Enter your choice:"); 
+c1=n.nextInt(); 
+c=n.nextInt(); 
+switch(c1){ 
+case 1:r.viewBalance(); 
+      break; 
+case 2:r.WithDraw(); 
+      break; 
+case 3:r.Deposit(); 
+      break; 
+default:System.out.println("Invalid Choice"); 
+} 
+       }while(c>=1&&c<=2); 
+    break; 
+default:System.out.println("Invalid Entry"); 
+} 
+System.out.println("Do you wish to continue(1.Yes\n2.No)"); 
+c2=n.nextInt(); 
+}while(c2==1); 
+} 
+} 
+ 
