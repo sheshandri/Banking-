@@ -1,2 +1,1 @@
-# Banking-
-Automating the Banking Operation
+EXploratory Data Analysis
